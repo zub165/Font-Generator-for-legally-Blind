@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Font Generator (APHont & Tiresias)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            font-size: 22px;
+            margin-top: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        select, button, textarea {
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 150px;
+            border: 1px solid #ddd;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .output-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .output-text {
+            word-wrap: break-word;
+            padding: 10px;
+        }
+        
+        .share-options {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .font-preview {
+            margin-top: 20px;
+        }
+        
+        .font-sample {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .aphont-sample {
+            font-family: 'APHont', Arial, sans-serif;
+        }
+        
+        .tiresias-sample {
+            font-family: 'Tiresias', Arial, sans-serif;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background-color: #eee;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .tab.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Accessible Font Generator for Visually Impaired Users</h1>
+        
+        <div class="tab-container">
+            <div class="tab active" data-tab="generator">Font Generator</div>
+            <div class="tab" data-tab="info">About APHont & Tiresias</div>
+            <div class="tab" data-tab="share">How to Share</div>
+        </div>
+        
+        <div class="tab-content active" id="generator">
+            <div class="section">
+                <h2>Font Selection</h2>
+                <label for="fontFamily">Select Font:</label>
+                <select id="fontFamily">
+                    <option value="APHont">APHont (American Printing House)</option>
+                    <option value="Tiresias">Tiresias Infofont (RNIB)</option>
+                    <option value="Arial">Arial (Standard)</option>
+                    <option value="Verdana">Verdana (Standard)</option>
+                </select>
+                
+                <label for="fontSize">Font Size:</label>
+                <select id="fontSize">
+                    <option value="24px">24px (Large)</option>
+                    <option value="28px">28px (Extra Large)</option>
+                    <option value="32px" selected>32px (Recommended)</option>
+                    <option value="40px">40px (Huge)</option>
+                    <option value="48px">48px (Maximum)</option>
+                </select>
+                
+                <label for="fontWeight">Font Weight:</label>
+                <select id="fontWeight">
+                    <option value="normal">Regular</option>
+                    <option value="bold">Bold</option>
+                </select>
+            </div>
+            
+            <div class="section">
+                <h2>Color & Contrast</h2>
+                <label for="textColor">Text Color:</label>
+                <select id="textColor">
+                    <option value="#000000">Black</option>
+                    <option value="#FFFFFF">White</option>
+                    <option value="#FFFF00">Yellow</option>
+                    <option value="#00FFFF">Cyan</option>
+                </select>
+                
+                <label for="bgColor">Background Color:</label>
+                <select id="bgColor">
+                    <option value="#FFFFFF">White</option>
+                    <option value="#000000">Black</option>
+                    <option value="#003366">Dark Blue</option>
+                    <option value="#660000">Dark Red</option>
+                </select>
+            </div>
+            
+            <div class="section">
+                <h2>Your Text</h2>
+                <label for="inputText">Enter your message:</label>
+                <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+                
+                <button id="generateBtn">Generate Accessible Text</button>
+                <button id="speechBtn">Speech Input</button>
+                <button id="clearBtn">Clear Text</button>
+            </div>
+            
+            <div class="section">
+                <h2>Generated Output</h2>
+                <div class="output-container">
+                    <div class="output-text" id="outputText">
+                        Your accessible text will appear here...
+                    </div>
+                </div>
+                
+                <div class="share-options" id="shareOptions">
+                    <h3>Share Your Text</h3>
+                    <button id="downloadPng">Download as PNG</button>
+                    <button id="downloadSvg">Download as SVG</button>
+                    <button id="shareLink">Generate Shareable Link</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="info">
+            <div class="section">
+                <h2>About APHont</h2>
+                <p>APHont (American Printing House font) is specifically designed for readers with visual impairments. Key features:</p>
+                <ul>
+                    <li>Distinct character shapes to reduce confusion</li>
+                    <li>Optimized spacing between letters and words</li>
+                    <li>Available in Regular, Bold, Italic, and Bold Italic</li>
+                    <li>Free for eligible users (non-commercial use)</li>
+                </ul>
+                
+                <div class="font-preview">
+                    <div class="font-sample aphont-sample" style="font-size: 24px;">
+                        APHont Sample: The quick brown fox jumps over the lazy dog.
+                    </div>
+                </div>
+                
+                <p><strong>Download APHont:</strong> Available from the <a href="https://www.aph.org" target="_blank">American Printing House website</a>.</p>
+            </div>
+            
+            <div class="section">
+                <h2>About Tiresias Infofont</h2>
+                <p>Developed by RNIB (Royal National Institute of Blind People), Tiresias is widely used for accessibility:</p>
+                <ul>
+                    <li>Excellent legibility at various sizes</li>
+                    <li>Clear distinction between similar characters (1, I, l, etc.)</li>
+                    <li>Free to use under GPL license</li>
+                    <li>Commonly used in public information systems</li>
+                </ul>
+                
+                <div class="font-preview">
+                    <div class="font-sample tiresias-sample" style="font-size: 24px;">
+                        Tiresias Sample: The quick brown fox jumps over the lazy dog.
+                    </div>
+                </div>
+                
+                <p><strong>Download Tiresias:</strong> Available from <a href="https://www.rnib.org.uk" target="_blank">RNIB website</a> or font repositories.</p>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="share">
+            <div class="section">
+                <h2>How to Share Your Accessible Text</h2>
+                <h3>Option 1: Download and Share Files</h3>
+                <ol>
+                    <li>Generate your text using the Font Generator</li>
+                    <li>Download as PNG (for images) or SVG (for scalable vector graphics)</li>
+                    <li>Upload to cloud storage (Google Drive, Dropbox, etc.) or email as attachment</li>
+                    <li>Send the download link to your recipient</li>
+                </ol>
+                
+                <h3>Option 2: Generate Shareable Link</h3>
+                <ol>
+                    <li>Create your accessible text</li>
+                    <li>Click "Generate Shareable Link"</li>
+                    <li>Copy the provided URL</li>
+                    <li>Share via email, messaging apps, or social media</li>
+                </ol>
+                
+                <h3>Option 3: Print for Physical Sharing</h3>
+                <ol>
+                    <li>Generate your text with appropriate size (minimum 18pt recommended)</li>
+                    <li>Use high-contrast color combinations</li>
+                    <li>Print on matte paper to reduce glare</li>
+                    <li>Consider using bold weight for better visibility</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Generate accessible text
+        document.getElementById('generateBtn').addEventListener('click', generateText);
+        
+        // Clear text
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            document.getElementById('inputText').value = '';
+            generateText();
+        });
+        
+        // Speech recognition
+        document.getElementById('speechBtn').addEventListener('click', startSpeechRecognition);
+        
+        // Initial generation
+        generateText();
+        
+        function generateText() {
+            const fontFamily = document.getElementById('fontFamily').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const fontWeight = document.getElementById('fontWeight').value;
+            const textColor = document.getElementById('textColor').value;
+            const bgColor = document.getElementById('bgColor').value;
+            const inputText = document.getElementById('inputText').value || 'Your accessible text will appear here...';
+            
+            const output = document.getElementById('outputText');
+            output.style.fontFamily = fontFamily;
+            output.style.fontSize = fontSize;
+            output.style.fontWeight = fontWeight;
+            output.style.color = textColor;
+            output.style.backgroundColor = bgColor;
+            output.textContent = inputText;
+            
+            // Show share options if there's user-generated text
+            if (inputText && inputText !== 'Your accessible text will appear here...') {
+                document.getElementById('shareOptions').style.display = 'block';
+            } else {
+                document.getElementById('shareOptions').style.display = 'none';
+            }
+        }
+        
+        function startSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                
+                recognition.onstart = function() {
+                    document.getElementById('speechBtn').textContent = 'Listening...';
+                    document.getElementById('speechBtn').style.backgroundColor = '#27ae60';
+                };
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('inputText').value = transcript;
+                    generateText();
+                };
+                
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error', event.error);
+                    document.getElementById('speechBtn').textContent = 'Speech Input';
+                    document.getElementById('speechBtn').style.backgroundColor = '#3498db';
+                };
+                
+                recognition.onend = function() {
+                    document.getElementById('speechBtn').textContent = 'Speech Input';
+                    document.getElementById('speechBtn').style.backgroundColor = '#3498db';
+                };
+                
+                recognition.start();
+            } else {
+                alert('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
+            }
+        }
+        
+        // Download functionality
+        document.getElementById('downloadPng').addEventListener('click', () => {
+            alert('In a full implementation, this would download a PNG image of your text with the selected settings.');
+            // Actual implementation would use canvas or server-side generation
+        });
+        
+        document.getElementById('downloadSvg').addEventListener('click', () => {
+            alert('In a full implementation, this would download an SVG file of your text with the selected settings.');
+        });
+        
+        document.getElementById('shareLink').addEventListener('click', () => {
+            const inputText = document.getElementById('inputText').value;
+            if (inputText) {
+                alert('Shareable link generated! In a full implementation, this would create a unique URL to share your text.\n\nText to share:\n' + inputText);
+            } else {
+                alert('Please generate some text first.');
+            }
+        });
+    </script>
+</body>
+</html>
